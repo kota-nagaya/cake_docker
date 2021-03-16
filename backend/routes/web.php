@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,12 +11,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::resource('home', 'HomeController');
-
-Route::resource('user', 'UserController');
+Route::view('/{path?}', 'app');
