@@ -1,5 +1,5 @@
 FROM node:14-buster as node
-FROM php:7.4-apache-buster
+FROM php:7.2-apache
 LABEL maintainer="ucan-lab <yes@u-can.pro>"
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
@@ -23,7 +23,8 @@ COPY --from=node /usr/local/lib /usr/local/lib
 COPY --from=node /opt /opt
 
 RUN apt-get update && \
-  apt-get -y install git libicu-dev libonig-dev libzip-dev unzip locales && \
+  apt-get -y install libmcrypt-dev git libicu-dev libonig-dev libzip-dev unzip locales && \
+  pecl install mcrypt-1.0.3 && \
   apt-get clean && \
   rm -rf /var/lib/apt/lists/* && \
   locale-gen en_US.UTF-8 && \

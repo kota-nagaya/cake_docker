@@ -6,6 +6,7 @@ services:
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
+    container_name: cake_web
     ports:
       - ${WEB_PORT:-80}:80
     volumes:
@@ -14,7 +15,7 @@ services:
       - DB_CONNECTION=mysql
       - DB_HOST=db
       - DB_PORT=3306
-      - DB_DATABASE=${DB_NAME:-laravel_local}
+      - DB_DATABASE=${DB_NAME:-cake_local}
       - DB_USERNAME=${DB_USER:-phper}
       - DB_PASSWORD=${DB_PASS:-secret}
 
@@ -22,22 +23,24 @@ services:
     build:
       context: .
       dockerfile: ./infra/docker/mysql/Dockerfile
+    container_name: cake_db
     ports:
       - ${DB_PORT:-3306}:3306
     volumes:
       - db-store:/var/lib/mysql
     environment:
-      - MYSQL_DATABASE=${DB_NAME:-laravel_local}
-      - MYSQL_USER=${DB_USER:-phper}
-      - MYSQL_PASSWORD=${DB_PASS:-secret}
-      - MYSQL_ROOT_PASSWORD=${DB_PASS:-secret}
+      - MYSQL_DATABASE=cake_local
+      - MYSQL_USER=phper
+      - MYSQL_PASSWORD=secret
+      - MYSQL_ROOT_PASSWORD=secret
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
+    container_name: cake_phpmyadmin
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=db
-      - PMA_USER=phper
+      - PMA_USER=root
       - PMA_PASSWORD=secret
     links:
       - db
