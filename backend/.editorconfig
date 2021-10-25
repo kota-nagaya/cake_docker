@@ -13,5 +13,8 @@ trim_trailing_whitespace = true
 end_of_line = crlf
 
 [*.yml]
+<<<<<<< HEAD
 indent_style = space
+=======
+>>>>>>> 9e389947b6097c3c06c105556ee13853a90e687c
 indent_size = 2
