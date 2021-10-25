@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # User specific & automatically generated files #
 #################################################
 /app/Config/database.php
@@ -29,16 +28,3 @@
 Icon?
 ehthumbs.db
 Thumbs.db
-=======
-/node_modules
-/public/hot
-/public/storage
-/storage/*.key
-/vendor
-.env
-.phpunit.result.cache
-Homestead.json
-Homestead.yaml
-npm-debug.log
-yarn-error.log
->>>>>>> 9e389947b6097c3c06c105556ee13853a90e687c
