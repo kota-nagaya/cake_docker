@@ -20,7 +20,7 @@ class Post extends AppModel
 		'body' => array(
 			'rule' => 'notBlank'
 		)
-
+	);
 	/**
 	 * Display field
 	 *
