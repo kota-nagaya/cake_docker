@@ -11,7 +11,6 @@
 	</tr>
 
 	<!-- ここで $posts 配列をループして、投稿情報を表示 -->
-
 	<?php foreach ($posts as $post) : ?>
 		<tr>
 			<td><?php echo $post['Post']['id']; ?></td>
@@ -43,5 +42,7 @@
 			</td>
 		</tr>
 	<?php endforeach; ?>
+
+	<?php echo $this->element('searchForm'); ?>
 
 </table>
