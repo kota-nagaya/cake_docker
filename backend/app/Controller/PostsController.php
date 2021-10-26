@@ -2,11 +2,26 @@
 
 class PostsController extends AppController
 {
+	public $components = array('Paginator', 'Search.Prg');
+
 	public $helpers = array('Html', 'Form');
 
 	public function index()
 	{
-		$this->set('posts', $this->Post->find('all'));
+		$this->Prg->commonProcess();
+		$this->paginate = array(
+			'Post' =>
+			array(
+				'conditions' => array(
+					$this->Post->parseCriteria($this->passedArgs)
+				)
+			)
+		);
+
+		$this->Post->recursive = 0;
+		$this->set('posts', $this->Paginator->paginate());
+
+		// $this->set('posts', $this->Post->find('all'));
 	}
 	public function view($id = null)
 	{
