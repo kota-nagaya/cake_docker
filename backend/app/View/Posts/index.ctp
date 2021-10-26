@@ -1,6 +1,19 @@
 <!-- File: /app/View/Posts/index.ctp -->
+<?php
+// 実際はユーザーテーブルに紐ついているdaxtraのテーブル
+// フォルダ内のjsonファイルを取得
+$dir = new Folder(WWW_ROOT . 'files/json');
+debug($files = $dir->find('.*\.json', true));
 
-<h1>Blog posts</h1>
+$files = $dir->find('.*\.json', true);
+// jsonをデコード
+$file = new File(WWW_ROOT . 'files/json/json_001_職歴書_404777_cv_demo.pl.json');
+debug($file->read());
+$file->close();
+?>
+
+
+<h1>Posts</h1>
 <p><?php echo $this->Html->link('Add Post', array('action' => 'add')); ?></p>
 <table>
 	<tr>
@@ -43,6 +56,8 @@
 		</tr>
 	<?php endforeach; ?>
 
-	<?php echo $this->element('searchForm'); ?>
+
 
 </table>
+
+<?php echo $this->element('searchForm'); ?>

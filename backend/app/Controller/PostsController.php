@@ -20,8 +20,6 @@ class PostsController extends AppController
 
 		$this->Post->recursive = 0;
 		$this->set('posts', $this->Paginator->paginate());
-
-		// $this->set('posts', $this->Post->find('all'));
 	}
 	public function view($id = null)
 	{

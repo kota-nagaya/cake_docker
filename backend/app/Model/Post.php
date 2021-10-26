@@ -1,11 +1,14 @@
 <?php
 App::uses('AppModel', 'Model');
+App::uses('Folder', 'Utility');
+App::uses('File', 'Utility');
 /**
  * Post Model
  *
  */
 class Post extends AppModel
 {
+
 	public $actsAs = array('Search.Searchable');
 	public $filterArgs = array(
 		'id' => array('type' => 'value'),
@@ -27,4 +30,17 @@ class Post extends AppModel
 	 * @var string
 	 */
 	public $displayField = 'title';
+
+	/**
+	 * daxtra description json化
+	 * ↓↓↓↓↓↓↓↓↓Controller↓↓↓↓↓↓↓↓↓↓
+	 * $description = "Skill > IT > other";
+	 * $this->Post->descConvertAry($description);
+	 * ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+	 */
+	public function descConvertAry($description)
+	{
+		$array[] = explode(" > ", $description);
+		return $array;
+	}
 }
