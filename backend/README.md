@@ -1,53 +1,60 @@
-# CakePHP Application Skeleton
-
-![Build Status](https://github.com/cakephp/app/actions/workflows/ci.yml/badge.svg?branch=master)
-[![Total Downloads](https://img.shields.io/packagist/dt/cakephp/app.svg?style=flat-square)](https://packagist.org/packages/cakephp/app)
-[![PHPStan](https://img.shields.io/badge/PHPStan-level%207-brightgreen.svg?style=flat-square)](https://github.com/phpstan/phpstan)
-
-A skeleton for creating applications with [CakePHP](https://cakephp.org) 4.x.
-
-The framework source code can be found here: [cakephp/cakephp](https://github.com/cakephp/cakephp).
+# CakePHP 4.3.1 docekr-compose 開発用
 
 ## Installation
 
-1. Download [Composer](https://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project --prefer-dist cakephp/app [app_name]`.
+```
+# コンテナ起動
+$ cd ~/cake_docker
+$ docker-compose up
+$ docker exec -it cake_app composer install
 
-If Composer is installed globally, run
+...
+PHP CodeSniffer Config installed_paths set to ../../cakephp/cakephp-codesniffer,../../slevomat/coding-standard
+> App\Console\Installer::postInstall
+Created `config/app_local.php` file
+Created `/work/backend/logs` directory
+Created `/work/backend/tmp` directory
+Created `/work/backend/tmp/cache` directory
+Created `/work/backend/tmp/cache/models` directory
+Created `/work/backend/tmp/cache/persistent` directory
+Created `/work/backend/tmp/cache/views` directory
+Created `/work/backend/tmp/sessions` directory
+Created `/work/backend/tmp/tests` directory
+Set Folder Permissions ? (Default to Y) [Y,n]? Y
+...
 
-```bash
-composer create-project --prefer-dist cakephp/app
 ```
 
-In case you want to use a custom app dir name (e.g. `/myapp/`):
+cakePHP
+http://localhost:8080/
 
-```bash
-composer create-project --prefer-dist cakephp/app myapp
+phpmyadmin
+http://localhost:8081/
+
+## Commands
+
+composer
+```
+$ docker exec -it cake_app composer
+```
+bake
+```
+$ docker exec -it cake_app cake bake
 ```
 
-You can now either use your machine's webserver to view the default home page, or start
-up the built-in webserver with:
+## Error
 
-```bash
-bin/cake server -p 8765
 ```
+Warning: require(/work/backend/vendor/autoload.php): failed to open stream: No such file or directory in /work/backend/webroot/index.php on line 31
 
-Then visit `http://localhost:8765` to see the welcome page.
+Fatal error: require(): Failed opening required '/work/backend/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /work/backend/webroot/index.php on line 31
+```
+### 解決策
+$ composeｒ install
 
-## Update
-
-Since this skeleton is a starting point for your application and various files
-would have been modified as per your needs, there isn't a way to provide
-automated upgrades, so you have to do any updates manually.
-
-## Configuration
-
-Read and edit the environment specific `config/app_local.php` and setup the 
-`'Datasources'` and any other configuration relevant for your application.
-Other environment agnostic settings can be changed in `config/app.php`.
-
-## Layout
-
-The app skeleton uses [Milligram](https://milligram.io/) (v1.3) minimalist CSS
-framework by default. You can, however, replace it with any other library or
-custom styles.
+## varsions
+ php 7.3
+ 
+  L composer:2.0
+  
+ mysql 5.6
