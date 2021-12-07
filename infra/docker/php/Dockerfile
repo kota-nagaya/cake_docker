@@ -1,6 +1,4 @@
-FROM node:14-buster as node
-FROM php:7.2-apache
-LABEL maintainer="ucan-lab <yes@u-can.pro>"
+FROM php:7.3-apache
 SHELL ["/bin/bash", "-oeux", "pipefail", "-c"]
 
 # timezone environment
@@ -13,14 +11,11 @@ ENV TZ=UTC \
   COMPOSER_ALLOW_SUPERUSER=1 \
   COMPOSER_HOME=/composer
 
+# cake bake command
+ENV PATH /work/backend/bin:$PATH
+
 # composer command
 COPY --from=composer:2.0 /usr/bin/composer /usr/bin/composer
-# node command
-COPY --from=node /usr/local/bin /usr/local/bin
-# npm command
-COPY --from=node /usr/local/lib /usr/local/lib
-# yarn command
-COPY --from=node /opt /opt
 
 RUN apt-get update && \
   apt-get -y install libmcrypt-dev git libicu-dev libonig-dev libzip-dev unzip locales && \

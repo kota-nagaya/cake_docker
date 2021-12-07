@@ -1,40 +1,40 @@
 version: '3.8'
 volumes:
-  db-store:
+  cake_db-store:
 services:
-  web:
+  cake_app:
     build:
       context: .
       dockerfile: ./infra/docker/php/Dockerfile
-    container_name: cake_web
+    container_name: cake_app
     ports:
-      - ${WEB_PORT:-80}:80
+      - ${WEB_PORT:-8080}:80
     volumes:
       - ./backend:/work/backend
     environment:
       - DB_CONNECTION=mysql
-      - DB_HOST=db
-      - DB_PORT=3306
+      - DB_HOST=${DB_HOST:-cake_db}
+      - DB_PORT=${DB_PORT:-3306}
       - DB_DATABASE=${DB_NAME:-cake_local}
       - DB_USERNAME=${DB_USER:-phper}
       - DB_PASSWORD=${DB_PASS:-secret}
 
-  db:
+  cake_db:
     build:
       context: .
       dockerfile: ./infra/docker/mysql/Dockerfile
     container_name: cake_db
     ports:
-      - ${DB_PORT:-3306}:3306
+      - ${DB_PORT:-3307}:3306
     volumes:
-      - db-store:/var/lib/mysql
+      - cake_db-store:/var/lib/mysql
     environment:
       - MYSQL_DATABASE=cake_local
       - MYSQL_USER=phper
       - MYSQL_PASSWORD=secret
       - MYSQL_ROOT_PASSWORD=secret
 
-  phpmyadmin:
+  cake_phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: cake_phpmyadmin
     environment:
@@ -43,8 +43,20 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=secret
     links:
-      - db
+      - cake_db
     ports:
-      - 8080:80
+      - 8081:80
     volumes:
       - /sessions
+
+  # https-portal:
+  #   image: steveltn/https-portal:1
+  #   ports:
+  #     - '81:80'
+  #     - '443:443'
+  #   restart: always
+  #   environment:
+  #     DOMAINS: 'hogehoge.local -> http://cake_app:80'
+  #     STAGE: 'local'
+  #   volumes:
+  #     - ./data/ssl_certs:/var/lib/https-portal
