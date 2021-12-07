@@ -50,7 +50,10 @@ Warning: require(/work/backend/vendor/autoload.php): failed to open stream: No s
 Fatal error: require(): Failed opening required '/work/backend/vendor/autoload.php' (include_path='.:/usr/local/lib/php') in /work/backend/webroot/index.php on line 31
 ```
 ### 解決策
+```
 $ composeｒ install
+```
+
 
 ## varsions
  php 7.3
