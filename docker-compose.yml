@@ -39,7 +39,7 @@ services:
     container_name: cake_phpmyadmin
     environment:
       - PMA_ARBITRARY=1
-      - PMA_HOST=db
+      - PMA_HOST=cake_db
       - PMA_USER=root
       - PMA_PASSWORD=secret
     links:
